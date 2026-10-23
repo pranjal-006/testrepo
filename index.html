@@ -1,1 +1,541 @@
-<p>hello</p>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Pranjal's Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column on a faint graph-paper ground, like a lab notebook. Sticky section nav, project index with live filter, contact form that builds a copyable message. */
+:root {
+  --paper: #F3F4F1;
+  --card: #FBFBF9;
+  --ink: #16202B;
+  --muted: #55616D;
+  --line: #D3D8D4;
+  --accent: #2F4BD9;
+  --accent-ink: #FFFFFF;
+  --hi: #F6E65B;
+  --hi-ink: #16202B;
+  --good: #1E7A4F;
+  --font-display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12171D; --card: #1A212A; --ink: #E8ECEF; --muted: #9AA5B0; --line: #2C3541;
+    --accent: #8DA2FF; --accent-ink: #0E1330; --hi: #C9B92E; --hi-ink: #12171D; --good: #5CC795;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12171D; --card: #1A212A; --ink: #E8ECEF; --muted: #9AA5B0; --line: #2C3541;
+  --accent: #8DA2FF; --accent-ink: #0E1330; --hi: #C9B92E; --hi-ink: #12171D; --good: #5CC795;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 3rem;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+.wrap { max-width: 62rem; margin-inline: auto; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.mono { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+
+/* header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--paper); border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; gap: 1rem; padding-block: .6rem; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--ink); text-decoration: none; white-space: nowrap; }
+nav { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+nav::-webkit-scrollbar { display: none; }
+nav ul { display: flex; gap: .25rem; list-style: none; margin: 0; padding: 0; justify-content: flex-end; }
+nav a {
+  display: block; padding: .35rem .7rem; border-radius: 99px; text-decoration: none;
+  font-family: var(--font-mono); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+nav a:hover { color: var(--ink); }
+nav a[aria-current="true"] { background: var(--ink); color: var(--paper); }
+.theme-btn {
+  flex: none; width: 2.25rem; height: 2.25rem; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink); cursor: pointer; display: grid; place-items: center;
+}
+.theme-btn:hover { border-color: var(--ink); }
+.theme-btn svg { width: 1.1rem; height: 1.1rem; }
+
+/* hero */
+.hero {
+  padding-block: clamp(2.5rem, 7vw, 5rem) clamp(2rem, 5vw, 3.5rem);
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px);
+  background-size: 2rem 2rem; background-position: -1px -1px;
+}
+.status { display: inline-flex; align-items: center; gap: .5rem; background: var(--card); border: 1px solid var(--line); padding: .3rem .75rem; border-radius: 99px; }
+.status i { width: .55rem; height: .55rem; border-radius: 50%; background: var(--good); }
+.hero h1 { font-size: clamp(2.6rem, 9vw, 5.6rem); font-weight: 700; letter-spacing: -.02em; margin-top: 1.25rem; }
+.hl { background: linear-gradient(transparent 58%, var(--hi) 58%, var(--hi) 92%, transparent 92%); padding-inline: .1em; }
+.lede { max-width: 38rem; margin-top: 1.25rem; font-size: clamp(1.1rem, 2.6vw, 1.3rem); }
+.cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
+.btn {
+  font-family: var(--font-display); font-weight: 500; font-size: 1rem; padding: .7rem 1.2rem; border-radius: 6px;
+  border: 1.5px solid var(--ink); background: transparent; color: var(--ink); text-decoration: none; cursor: pointer; display: inline-block;
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:hover { transform: translateY(-1px); }
+.facts { display: flex; flex-wrap: wrap; gap: .5rem 2rem; margin-top: 2.25rem; padding: 0; list-style: none; }
+.facts li { min-width: 0; }
+.facts b { display: block; font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--ink); text-transform: none; letter-spacing: 0; }
+
+/* sections */
+section { padding-block: clamp(2.5rem, 6vw, 4rem) 0; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; margin-bottom: 1.5rem; border-top: 2px solid var(--ink); padding-top: .9rem; }
+.sec-head h2 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); }
+
+.about { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+.about p { max-width: 65ch; }
+.about p + p { margin-top: 1rem; }
+.interests { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1rem 0 0; list-style: none; }
+.interests li { border: 1px dashed var(--muted); padding: .2rem .65rem; border-radius: 4px; font-family: var(--font-mono); font-size: .8rem; }
+
+/* projects */
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem; }
+.chip {
+  font-family: var(--font-mono); font-size: .8rem; padding: .4rem .8rem; border-radius: 99px;
+  border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip small { opacity: .65; margin-left: .25rem; font-size: .75rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 1rem; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem; display: flex; flex-direction: column; gap: .75rem; min-width: 0; }
+.card header { display: flex; justify-content: space-between; gap: .75rem; align-items: baseline; }
+.card h3 { font-size: 1.3rem; }
+.card .yr { flex: none; }
+.card p.blurb { font-size: .98rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; margin: 0; list-style: none; }
+.tags li { font-family: var(--font-mono); font-size: .72rem; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); padding: .1rem .5rem; border-radius: 4px; }
+.toggle { margin-top: auto; align-self: flex-start; background: none; border: 0; padding: .25rem 0; color: var(--accent); font-family: var(--font-display); font-weight: 500; font-size: .98rem; cursor: pointer; }
+.toggle:hover { text-decoration: underline; }
+.detail { border-top: 1px dashed var(--line); padding-top: .75rem; font-size: .95rem; display: grid; gap: .5rem; }
+.detail dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .25rem .75rem; }
+.detail dt { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding-top: .2rem; }
+.detail dd { margin: 0; min-width: 0; }
+.empty { color: var(--muted); }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1.5rem 2rem; }
+.skills h3 { font-size: 1.1rem; margin-bottom: .6rem; }
+.skills ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .45rem; }
+.skills li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: var(--font-mono); font-size: .88rem; }
+.dots { display: inline-flex; gap: 3px; flex: none; }
+.dots i { width: .6rem; height: .6rem; border-radius: 2px; border: 1.5px solid var(--ink); }
+.dots i.on { background: var(--ink); }
+
+/* education */
+.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.tl li { display: grid; grid-template-columns: 8.5rem 1fr; gap: .25rem 1.25rem; padding-block: 1rem; border-top: 1px solid var(--line); }
+.tl li:first-child { border-top: 0; padding-top: 0; }
+.tl h3 { font-size: 1.2rem; }
+.tl p { color: var(--muted); font-size: .98rem; max-width: 60ch; }
+.tl .when { padding-top: .35rem; }
+
+/* contact */
+.contact { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 52rem) { .contact { grid-template-columns: 1fr 1.2fr; } .about { grid-template-columns: 1.4fr 1fr; } }
+form { display: grid; gap: 1rem; }
+label { display: grid; gap: .3rem; font-family: var(--font-mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+input, textarea {
+  font: inherit; font-size: 1rem; color: var(--ink); background: var(--card);
+  border: 1.5px solid var(--line); border-radius: 6px; padding: .65rem .8rem; width: 100%; min-width: 0;
+  text-transform: none; letter-spacing: 0;
+}
+textarea { min-height: 8rem; resize: vertical; }
+input:focus, textarea:focus { border-color: var(--accent); }
+.err { color: #B3261E; font-family: var(--font-body); font-size: .9rem; text-transform: none; letter-spacing: 0; min-height: 1.2em; }
+:root[data-theme="dark"] .err { color: #FF8F87; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .err { color: #FF8F87; } }
+.out { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; display: grid; gap: .75rem; }
+.out pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font-mono); font-size: .85rem; background: var(--paper); padding: .75rem; border-radius: 6px; }
+.row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.addr { font-family: var(--font-mono); font-size: .95rem; overflow-wrap: anywhere; user-select: all; }
+.links { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: .4rem; }
+.links span { display: inline-block; width: 5.5rem; }
+footer { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; }
+
+@media (max-width: 34rem) {
+  .tl li { grid-template-columns: 1fr; }
+  .brand { font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn:hover { transform: none; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Pranjal</a>
+    <nav aria-label="Sections">
+      <ul id="nav">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <span class="status mono"><i></i><span id="statusText"></span></span>
+      <h1>Hi, I'm <span class="hl" id="heroName">Pranjal</span>.</h1>
+      <p class="lede" id="heroLede"></p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See my projects</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <ul class="facts mono" id="facts"></ul>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section id="about">
+      <div class="sec-head"><h2>About</h2><span class="mono">Who I am</span></div>
+      <div class="about">
+        <div id="aboutText"></div>
+        <div>
+          <span class="mono">Outside class</span>
+          <ul class="interests" id="interests"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="sec-head"><h2>Projects</h2><span class="mono" id="projCount"></span></div>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects by type"></div>
+      <div class="grid" id="grid" aria-live="polite"></div>
+    </section>
+
+    <section id="skills">
+      <div class="sec-head"><h2>Skills</h2><span class="mono">Filled squares = confidence out of 5</span></div>
+      <div class="skills" id="skillGrid"></div>
+    </section>
+
+    <section id="education">
+      <div class="sec-head"><h2>Education</h2><span class="mono">Timeline</span></div>
+      <ol class="tl" id="tl"></ol>
+    </section>
+
+    <section id="contact">
+      <div class="sec-head"><h2>Contact</h2><span class="mono">Say hello</span></div>
+      <div class="contact">
+        <div>
+          <p id="contactLede"></p>
+          <p style="margin-top:1rem"><span class="mono">Email</span><br><span class="addr" id="emailText"></span></p>
+          <div class="row" style="margin-top:.6rem"><button class="btn" type="button" id="copyEmail">Copy email</button></div>
+          <ul class="links" id="links"></ul>
+        </div>
+        <div>
+          <form id="form" novalidate>
+            <label for="fName">Your name
+              <input id="fName" name="name" type="text" autocomplete="name" required>
+              <span class="err" id="eName"></span>
+            </label>
+            <label for="fEmail">Your email
+              <input id="fEmail" name="email" type="email" autocomplete="email" required>
+              <span class="err" id="eEmail"></span>
+            </label>
+            <label for="fMsg">Message
+              <textarea id="fMsg" name="message" required></textarea>
+              <span class="err" id="eMsg"></span>
+            </label>
+            <div><button class="btn primary" type="submit">Prepare message</button></div>
+          </form>
+          <div class="out" id="out" hidden>
+            <span class="mono">Your message is ready</span>
+            <pre id="outText"></pre>
+            <div class="row">
+              <button class="btn primary" type="button" id="copyMsg">Copy message</button>
+              <a class="btn" id="mailLink" href="#contact">Open in mail app</a>
+            </div>
+            <p class="mono" id="outNote">Nothing has been sent yet. Paste it into an email to the address on the left.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mono">
+      <span id="footL"></span>
+      <span>Sample content. Replace the details in CONFIG with your own.</span>
+    </footer>
+  </div>
+</main>
+
+<script>
+/* ===== CONFIG: edit this block to make the site yours ===== */
+var CONFIG = {
+  name: "Pranjal",
+  status: "Open to internships, summer 2027",
+  lede: "Third-year computer science student who builds small, useful tools and likes explaining how they work.",
+  email: "your.name@university.edu",
+  facts: [["Year", "3rd year, B.Tech CSE"], ["Projects", "6 shipped"], ["Based in", "India (IST)"]],
+  about: [
+    "I study computer science and spend most of my free time turning classroom ideas into things people can open and use. I like projects where the problem is concrete: a campus timetable that was painful to read, a lab dataset nobody had cleaned.",
+    "I am looking for an internship where I can work on a real product with a team, ship something in a few weeks, and get code review from people who have done it before."
+  ],
+  interests: ["Strength training", "Chess", "Open-source docs", "Hackathons"],
+  projects: [
+    { title: "Timetable Tidy", type: "Web", year: 2026, tags: ["JavaScript", "HTML/CSS"],
+      blurb: "Turns the college's PDF timetable into a clean weekly view that works on a phone.",
+      role: "Solo developer", outcome: "Used by 140 classmates in the first term.", stack: "Vanilla JS, PDF.js, localStorage" },
+    { title: "Lab Data Cleaner", type: "Data", year: 2026, tags: ["Python", "pandas"],
+      blurb: "Command-line tool that fixes messy sensor CSVs: duplicate rows, unit mix-ups, missing timestamps.",
+      role: "Lead of a team of 3", outcome: "Cut weekly cleanup for the physics lab from 3 hours to 10 minutes.", stack: "Python, pandas, pytest" },
+    { title: "Gym Log", type: "Mobile", year: 2025, tags: ["React Native"],
+      blurb: "Offline-first workout tracker with progressive overload suggestions and a weekly volume chart.",
+      role: "Solo developer", outcome: "Daily driver for me and 12 friends.", stack: "React Native, SQLite" },
+    { title: "Study Planner Bot", type: "Data", year: 2025, tags: ["Python", "NLP"],
+      blurb: "Reads a syllabus and builds a week-by-week revision plan sized to your free hours.",
+      role: "Hackathon team of 4", outcome: "Second place out of 38 teams at the college hackathon.", stack: "Python, spaCy, Flask" },
+    { title: "Campus Map Lite", type: "Web", year: 2025, tags: ["JavaScript", "SVG"],
+      blurb: "Searchable SVG map of the campus with walking times between lecture halls.",
+      role: "Frontend developer", outcome: "Linked from the freshers' orientation page.", stack: "SVG, vanilla JS" },
+    { title: "Kernel Notes", type: "Writing", year: 2024, tags: ["Technical writing"],
+      blurb: "A 12-part illustrated series explaining operating systems concepts for first-years.",
+      role: "Author and illustrator", outcome: "Adopted as supplementary reading by the OS course.", stack: "Markdown, Excalidraw" }
+  ],
+  skills: [
+    { group: "Languages", items: [["Python", 4], ["JavaScript", 4], ["C++", 3], ["SQL", 3]] },
+    { group: "Web and apps", items: [["HTML/CSS", 4], ["React", 3], ["Flask", 3], ["React Native", 2]] },
+    { group: "Tools", items: [["Git", 4], ["Linux shell", 3], ["pandas", 4], ["Figma", 2]] }
+  ],
+  education: [
+    { when: "2024 to 2028", title: "B.Tech, Computer Science", place: "Your University",
+      note: "Coursework: data structures, operating systems, databases, machine learning basics." },
+    { when: "Summer 2026", title: "Research assistant, physics lab", place: "Same university",
+      note: "Wrote the data cleaning pipeline that became Lab Data Cleaner." },
+    { when: "2025", title: "Campus hackathon, 2nd place", place: "38 teams",
+      note: "Built Study Planner Bot in 24 hours with three teammates." }
+  ],
+  links: [["GitHub", "github.com/your-handle"], ["LinkedIn", "linkedin.com/in/your-handle"], ["Resume", "Add a link to your PDF"]]
+};
+/* ===== end CONFIG ===== */
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var C = CONFIG;
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  /* hero, about, footer */
+  document.title = C.name + "'s Portfolio";
+  $("heroName").textContent = C.name;
+  $("statusText").textContent = C.status;
+  $("heroLede").textContent = C.lede;
+  C.facts.forEach(function (f) {
+    var li = el("li", null, f[0]);
+    li.appendChild(el("b", null, f[1]));
+    $("facts").appendChild(li);
+  });
+  C.about.forEach(function (t) { $("aboutText").appendChild(el("p", null, t)); });
+  C.interests.forEach(function (t) { $("interests").appendChild(el("li", null, t)); });
+  $("footL").textContent = C.name + " · " + new Date().getFullYear();
+
+  /* projects with filter */
+  var types = ["All"];
+  C.projects.forEach(function (p) { if (types.indexOf(p.type) < 0) types.push(p.type); });
+  var active = "All";
+
+  function countFor(t) {
+    return C.projects.filter(function (p) { return t === "All" || p.type === t; }).length;
+  }
+
+  function renderFilters() {
+    var box = $("filters");
+    box.textContent = "";
+    types.forEach(function (t) {
+      var b = el("button", "chip", t);
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(t === active));
+      b.appendChild(el("small", null, String(countFor(t))));
+      b.addEventListener("click", function () { active = t; renderFilters(); renderGrid(); });
+      box.appendChild(b);
+    });
+  }
+
+  function card(p, idx) {
+    var c = el("article", "card");
+    var h = el("header");
+    h.appendChild(el("h3", null, p.title));
+    h.appendChild(el("span", "mono yr", String(p.year)));
+    c.appendChild(h);
+    c.appendChild(el("p", "blurb", p.blurb));
+    var tags = el("ul", "tags");
+    [p.type].concat(p.tags).forEach(function (t) { tags.appendChild(el("li", null, t)); });
+    c.appendChild(tags);
+
+    var detail = el("div", "detail");
+    detail.id = "detail-" + idx;
+    detail.hidden = true;
+    var dl = el("dl");
+    [["Role", p.role], ["Result", p.outcome], ["Stack", p.stack]].forEach(function (r) {
+      dl.appendChild(el("dt", null, r[0]));
+      dl.appendChild(el("dd", null, r[1]));
+    });
+    detail.appendChild(dl);
+
+    var t = el("button", "toggle", "Show details");
+    t.type = "button";
+    t.setAttribute("aria-expanded", "false");
+    t.setAttribute("aria-controls", detail.id);
+    t.addEventListener("click", function () {
+      var open = detail.hidden;
+      detail.hidden = !open;
+      t.setAttribute("aria-expanded", String(open));
+      t.textContent = open ? "Hide details" : "Show details";
+    });
+    c.appendChild(detail);
+    c.appendChild(t);
+    return c;
+  }
+
+  function renderGrid() {
+    var g = $("grid");
+    g.textContent = "";
+    var list = C.projects.filter(function (p) { return active === "All" || p.type === active; });
+    list.forEach(function (p, i) { g.appendChild(card(p, active + "-" + i)); });
+    if (!list.length) g.appendChild(el("p", "empty", "No projects in this category yet."));
+    $("projCount").textContent = list.length + " of " + C.projects.length + " shown";
+  }
+  renderFilters();
+  renderGrid();
+
+  /* skills */
+  C.skills.forEach(function (s) {
+    var d = el("div");
+    d.appendChild(el("h3", null, s.group));
+    var ul = el("ul");
+    s.items.forEach(function (it) {
+      var li = el("li");
+      li.appendChild(el("span", null, it[0]));
+      var dots = el("span", "dots");
+      dots.setAttribute("role", "img");
+      dots.setAttribute("aria-label", it[1] + " out of 5");
+      for (var i = 1; i <= 5; i++) dots.appendChild(el("i", i <= it[1] ? "on" : ""));
+      li.appendChild(dots);
+      ul.appendChild(li);
+    });
+    d.appendChild(ul);
+    $("skillGrid").appendChild(d);
+  });
+
+  /* education */
+  C.education.forEach(function (e) {
+    var li = el("li");
+    li.appendChild(el("span", "mono when", e.when));
+    var d = el("div");
+    d.appendChild(el("h3", null, e.title));
+    d.appendChild(el("p", null, e.place + ". " + e.note));
+    li.appendChild(d);
+    $("tl").appendChild(li);
+  });
+
+  /* contact */
+  $("contactLede").textContent = "I reply to internship and project messages within two days. Write a few lines about what you have in mind.";
+  $("emailText").textContent = C.email;
+  C.links.forEach(function (l) {
+    var li = el("li");
+    li.appendChild(el("span", "mono", l[0]));
+    li.appendChild(document.createTextNode(l[1]));
+    $("links").appendChild(li);
+  });
+
+  function copyText(text, btn, done) {
+    var label = btn.textContent;
+    function ok() { btn.textContent = done; setTimeout(function () { btn.textContent = label; }, 1800); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); ok(); } catch (e) { btn.textContent = "Select the text and copy"; }
+      document.body.removeChild(ta);
+    }
+    try {
+      navigator.clipboard.writeText(text).then(ok, fallback);
+    } catch (e) { fallback(); }
+  }
+  $("copyEmail").addEventListener("click", function () { copyText(C.email, this, "Copied"); });
+
+  var message = "";
+  $("form").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var name = $("fName").value.trim(), email = $("fEmail").value.trim(), msg = $("fMsg").value.trim();
+    var bad = false;
+    $("eName").textContent = name ? "" : "Enter your name.";
+    $("eEmail").textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? "" : "Enter an email address like name@example.com.";
+    $("eMsg").textContent = msg.length >= 10 ? "" : "Write at least a sentence so I know what you need.";
+    bad = !!($("eName").textContent || $("eEmail").textContent || $("eMsg").textContent);
+    if (bad) { $("out").hidden = true; return; }
+    message = "To: " + C.email + "\nSubject: Portfolio message from " + name + "\n\n" + msg + "\n\n" + name + "\n" + email;
+    $("outText").textContent = message;
+    $("mailLink").href = "mailto:" + C.email + "?subject=" + encodeURIComponent("Portfolio message from " + name) +
+      "&body=" + encodeURIComponent(msg + "\n\n" + name + "\n" + email);
+    $("out").hidden = false;
+    $("out").scrollIntoView({ block: "nearest", behavior: "smooth" });
+  });
+  $("copyMsg").addEventListener("click", function () { copyText(message, this, "Copied"); });
+
+  /* theme toggle: cycles system -> light -> dark, remembered if storage allows */
+  var root = document.documentElement;
+  try {
+    var saved = localStorage.getItem("portfolio-theme");
+    if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  $("themeBtn").addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    var isDark = cur ? cur === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = isDark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("portfolio-theme", next); } catch (e) {}
+  });
+
+  /* highlight the nav link for the section in view */
+  var links = {};
+  Array.prototype.forEach.call($("nav").querySelectorAll("a"), function (a) { links[a.getAttribute("href").slice(1)] = a; });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          Object.keys(links).forEach(function (k) { links[k].removeAttribute("aria-current"); });
+          links[en.target.id].setAttribute("aria-current", "true");
+          links[en.target.id].scrollIntoView({ block: "nearest", inline: "nearest" });
+        }
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    Object.keys(links).forEach(function (k) { var s = $(k); if (s) io.observe(s); });
+  }
+})();
+</script>
+
+</body></html>
